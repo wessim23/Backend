@@ -1,21 +1,22 @@
-imports:
-    - { resource: admin.yml }
-easy_admin:
-#    site_name: 'BO:Proxym-it'
-    site_name: 'BO: <em style="font-size: 80%; color: yellow"> Proxym-it</em>'
-    entities:
+#imports:
+#    - { resource: admin.yml }
+#easy_admin:
+##    site_name: 'BO:Proxym-it'
+#    site_name: 'BO: <em style="font-size: 80%; color: yellow"> Proxym-it</em>'
+#    entities:
+#
+#        Ticket:
+#            templates:
+#                flash_messages: "pxBackendBundle:Default:flash_messages.html.twig"
+#            class: AppBundle\Entity\Ticket
+#            form:
+#                fields:
+#                    - 'created_by'   
+#                    - 'visible_by'   
+#                    - 'category'   
+#                    - 'subCategory'   
+##                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Category' } }
+#                    - { property: 'created_at', type: 'px_date'}
+#                    - { property: 'updated_at', type: 'px_date'}
+#                    - 'description'   
 
-        Ticket:
-            templates:
-                flash_messages: "pxBackendBundle:Default:flash_messages.html.twig"
-            class: AppBundle\Entity\Ticket
-            form:
-                fields:
-                    - 'created_by'   
-                    - 'visible_by'   
-                    - 'category'   
-                    - 'subCategory'   
-#                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Category' } }
-                    - { property: 'created_at', type: 'px_date'}
-                    - { property: 'updated_at', type: 'px_date'}
-                    - 'description'   

@@ -1,26 +1,26 @@
-parameters:
-    Ticket:
-        entity_path: AppBundle\Entity\Ticket
-        entity_name: AppBundle:Ticket
-        table_id: dt_admin_table
-        main_alias: d
-        fields:
-            0:
-                name: id
-                label: Id
-                tabSortable: true
-                tabVisible: true
-                tabSearchable: true
-                sClass: " center col-sm-2 col-md-2"
-
-            1:
-                name: actions
-                label: Actions
-                tabSortable: false
-                tabVisible: true
-                tabSearchable: false
-                sClass: "col-sm-2 col-md-2 table-action center"
-        default_order: 
-            name: id
-            index: 0
-            sens: asc
+#parameters:
+#    Ticket:
+#        entity_path: AppBundle\Entity\Ticket
+#        entity_name: AppBundle:Ticket
+#        table_id: dt_admin_table
+#        main_alias: d
+#        fields:
+#            0:
+#                name: id
+#                label: Id
+#                tabSortable: true
+#                tabVisible: true
+#                tabSearchable: true
+#                sClass: " center col-sm-2 col-md-2"
+#
+#            1:
+#                name: actions
+#                label: Actions
+#                tabSortable: false
+#                tabVisible: true
+#                tabSearchable: false
+#                sClass: "col-sm-2 col-md-2 table-action center"
+#        default_order: 
+#            name: id
+#            index: 0
+#            sens: asc
