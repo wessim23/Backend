@@ -1,8 +1,6 @@
 # Backend
-**❮ NOTE ❯** This bundle releases new versions on a regular basis. Make sure
-to update your dependencies frequently to get the latest version.
-[Check out the changelog](https://github.com/javiereguiluz/EasyAdminBundle/releases)
-to learn about the new features and read the [UPGRADE guide](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/UPGRADE.md).
+**❮ NOTE ❯** This bundle require EasyAdminBundle.
+Start with reading the the documentation of EasyAdmin to learn how to create complex backends.
 
 -----
 
@@ -79,7 +77,7 @@ Demo Application
 [easy-admin-demo](https://github.com/javiereguiluz/easy-admin-demo) is a complete
 Symfony application created to showcase EasyAdmin features.
 
-Installation
+Installation pxBackendBundle
 ------------
 
 ### Step 1: Download the Bundle
@@ -204,11 +202,9 @@ parameters:
 
 **Congratulations! You've just created your first fully-featured backend!**
 Browse the `/admin` URL in your Symfony application and you'll get access to
-the admin backend:
+the admin backend
 
-![Default EasyAdmin Backend interface](https://raw.githubusercontent.com/javiereguiluz/EasyAdminBundle/master/Resources/doc/images/easyadmin-default-backend.png)
-
-Keep reading the rest of the documentation to learn how to create complex backends.
+Keep reading the rest of the documentation of EasyAdmin to learn how to create complex backends.
 
 License
 -------
