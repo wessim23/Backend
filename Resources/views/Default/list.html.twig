@@ -1,0 +1,123 @@
+{% set _entity_config = easyadmin_entity(app.request.query.get('entity')) %}
+{% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans } %}
+
+{% extends _entity_config.templates.layout %}
+
+{% set _request_parameters = _request_parameters|default({})|merge({
+    action: app.request.get('action'),
+    entity: _entity_config.name,
+    menuIndex: app.request.get('menuIndex'),
+    submenuIndex: app.request.get('submenuIndex'),
+    sortField: app.request.get('sortField', ''),
+    sortDirection: app.request.get('sortDirection', 'DESC'),
+    page: app.request.get('page', 1)
+}) %}
+
+{% if 'search' == app.request.get('action') %}
+    {% set _request_parameters = _request_parameters|merge({ query: app.request.get('query')|default('') }) %}
+{% endif %}
+
+{% set _request_parameters = _request_parameters|merge({ referer: path('easyadmin', _request_parameters)|url_encode }) %}
+
+{% block body_id 'easyadmin-list-' ~ _entity_config.name %}
+    {% block body_class 'list list-' ~ _entity_config.name|lower %}
+        {% block content_header %}
+            {% if easyadmin_action_is_enabled_for_list_view('new', _entity_config.name) %}
+                {% set _action = easyadmin_get_action_for_list_view('new', _entity_config.name) %}
+                {% block new_action %}
+                    <div class="button-action">
+                        <a class="{{ _action.css_class|default('') }}" href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}">
+                            {% if _action.icon %}<i class="fa fa-{{ _action.icon }}"></i>{% endif %}
+                            {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}
+                        </a>
+                    </div>
+                {% endblock new_action %}
+            {% endif %}
+        {% endblock content_header %}
+        {% set _content_title %}
+            {% spaceless %}
+                {% if 'search' == app.request.get('action') %}
+                    {{ 'search.page_title'|transchoice(count = paginator.nbResults, domain = 'EasyAdminBundle')|raw }}
+                {% else %}
+                    {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
+                    {{ _entity_config.list.title is defined ? _entity_config.list.title|trans(_trans_parameters) : _default_title }}
+                {% endif %}
+            {% endspaceless %}
+        {% endset %}
+
+        {% block page_title %}{{ _content_title|striptags }}{% endblock %}
+
+        {% block main %}
+             
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="row">
+                    </div>
+                    <div class="clear-fix"></div>
+
+                    <div id="res-table" class="{% if showTable == true %}display-block{% else %}display-none{% endif %}">
+
+                        <input type="hidden" name="hidden_ids" id="hidden_ids" value="" />
+                        <input type="hidden" name="hidden_all" id="hidden_all" value="" />
+                        <table class="table table-striped table-bordered dTableR dataTable" id="dt_admin_table">
+                            <thead>
+                                <tr>
+                                    {%for key, field in config['fields'] %}
+                                        <th class="center">{{field.label}}</th>
+                                        {%endfor%}
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    {%for key, field in config['fields'] %}
+                                        <th lang="{{key}}"> {% if field.name !='actions'%}<input class="search_init" type="text" name="filter[]" value="Filter" />{%endif%}</th>
+                                        {%endfor%}
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                    <div id="res-msg" class="{% if showTable == true %}display-none{% else %}display-block{% endif %} col-sm-12 col-md-12">{{ 'jobber.noresult'|trans }}</div>
+                </div>
+            </div>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-success alert-dismissable ">
+                            <a class="close" data-dismiss="alert">×</a>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+        {% endblock %}
+
+
+        {% block body_javascript %}
+            {{ parent() }}
+
+            <script type="text/javascript">
+                $(function () {
+
+                    $(document).on('click', '.action-delete', function (e) {
+                        e.preventDefault();
+                        var id = $(this).parents('td').first().find('input.identifier').val();
+
+                        $('#modal-delete').modal({backdrop: true, keyboard: true})
+                                .off('click', '#modal-delete-button')
+                                .on('click', '#modal-delete-button', function () {
+                                    var deleteForm = $('#delete-form');
+                                    deleteForm.attr('action', deleteForm.attr('action').replace('__id__', id));
+                                    deleteForm.trigger('submit');
+                                });
+                    });
+                });
+            </script>
+            {% include 'pxBackendBundle:Default:_datatable.html.twig' %}
+            <script type="text/javascript">
+                var url_ajax_data = "{{ path('admin_table_list', {'entity': _entity_config.name}) }}";
+                var text_delete = "{{ 'form.alert.delete'|trans }}";
+                var text_cancel = "{{ 'form.alert.cancel'|trans }}";
+                var text_loading = "{{ 'form.alert.loading'|trans }}";
+
+            </script>
+        {% endblock %}

@@ -1,0 +1,12 @@
+
+    {% if app.session is not null and app.session.started %}
+
+        {% for label, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissable" style ="margin: 7px;">
+                    <a class="close" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}

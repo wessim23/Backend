@@ -1,0 +1,7 @@
+services:
+#    px_backend.example:
+#        class: px\BackendBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    listing_service:
+        class: px\BackendBundle\Services\ListingService
+        arguments: ['@doctrine', '@templating']

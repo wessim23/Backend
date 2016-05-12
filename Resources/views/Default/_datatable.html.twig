@@ -1,0 +1,284 @@
+<!-- datatables -->
+<link rel="stylesheet" href="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/css/TableTools.css') }}">
+<link rel="stylesheet" href="{{ asset('bundles/pxbackend/css/main.css') }}">
+<link rel="stylesheet" href="{{ asset('bundles/pxbackend/css/style.css') }}">
+{# 	<link rel="stylesheet" href="{{ asset('datatables/extras/responsive/1.0.6/css/dataTables.responsive.css') }}">#}
+
+<!-- datatable -->
+<script src="{{ asset('bundles/pxbackend/js/datatables/jquery.dataTables.min.js') }}"></script>
+{# 	<script src="{{ asset('datatables/extras/responsive/jquery.dataTables.min.js') }}"></script>#}
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/Scroller/media/js/dataTables.scroller.min.js') }}"></script>
+<!-- datatable table tools -->
+<script type="text/javascript" src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/jquery.dataTables_fonctions_trier.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/jquery.jeditable.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/ColReorder.js') }}"></script>
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/TableTools.min.js') }}"></script>
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/ZeroClipboard.js') }}"></script>
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/fnReloadAjax.js') }}"></script>
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/jquery.browser.js') }}"></script>
+<script src="{{ asset('bundles/pxbackend/js/datatables/extras/TableTools/media/js/ColVis.js') }}"></script>
+<!-- datatables bootstrap integration -->
+<script src="{{ asset('bundles/pxbackend/js/datatables/jquery.dataTables.bootstrap.min.js') }}"></script>
+
+<script>
+	oTable={};
+	asInitVals={};
+	$(document).ready(function() {
+		//* Personnalisé
+		TableTools.BUTTONS.download = {
+			"sAction": "text",
+			"sTag": "default",
+			"sFieldBoundary": "",
+			"sFieldSeperator": "\t",
+			"sNewLine": "<br>",
+			"sToolTip": "",
+			"sButtonClass": "DTTT_button DTTT_button_xls ui-button ui-state-default",
+			"sButtonClassHover": "DTTT_button DTTT_button_xls ui-button ui-state-default",
+			// "sButtonText": "Download",
+			"mColumns": "all",
+			"bHeader": true,
+			"bFooter": true,
+			"sDiv": "",
+			"fnMouseover": null,
+			"fnMouseout": null,
+			"fnClick": function( nButton, oConfig ) {
+				var oParams = this.s.dt.oApi._fnAjaxParameters( this.s.dt );
+				var iframe = document.createElement('iframe');
+				iframe.style.height = "0px";
+				iframe.style.width = "0px";
+				iframe.src = oConfig.sUrl+"?"+$.param(oParams);
+				document.body.appendChild( iframe );
+			},
+			"fnSelect": null,
+			"fnComplete": null,
+			"fnInit": null
+		};
+		var index_datatable = 0;
+		var id_datatble = "{{ config['table_id'] }}";
+		var data_request = "";
+		var aoColumns_datatable = [];
+		{% for key, field in config['fields'] %}
+		var colObject = {};
+		var tabSortable = ("{{ field['tabSortable'] }}" === '1');
+		var tabVisible = ("{{ field['tabVisible'] }}" === '1');
+		var tabSearchable = ("{{ field['tabSearchable'] }}" === '1');
+		var sClass = "{{ field['sClass'] }}";
+
+		colObject['sClass'] = sClass;
+		colObject['bSortable'] = tabSortable;
+		colObject['bVisible'] = tabVisible;
+		colObject['bSearchable'] = tabSearchable;
+		colObject['mDataProp'] = "{{ key }}";
+		colObject['sSearch'] = "{{ key }}";
+
+		aoColumns_datatable.push(colObject);
+
+		{% endfor %}
+
+		var ordre_column_datatable = [];
+		var order = [{{ config['default_order']['index'] }}, "{{ config['default_order']['sens'] }}"];
+		ordre_column_datatable.push(order);
+		initDataTable(index_datatable, id_datatble, url_ajax_data, data_request, aoColumns_datatable, ordre_column_datatable);
+
+	});
+
+	function initDataTable(index_datatable, id_datatable, url_ajax_data, data_request, aoColumns_datatable, ordre_column_datatable,reorder)
+	{
+		reorder = reorder || [];
+		asInitVals[index_datatable] = {};
+		oTable[index_datatable] = $("#"+id_datatable).dataTable({
+			"bScrollCollapse": true,
+			"bProcessing": true,
+			"bServerSide": true,
+			"bDeferRender": true,
+			"sAjaxSource": (url_ajax_data + (data_request != "" ? ("?" + data_request) : "")),
+			"bStateSave": true,
+			"bAutoWidth": true,
+			"sWrapper": true,
+			"iCookieDuration": 0,
+			"sDom": '<"table_css"<"table_head uppercase"<"table_div_0 left"C><"table_div_1 overflow-auto left"R><"table_div_2 overflow-auto left"l><"table_div_3 overflow-auto"f><"table_div_4 overflow-auto"r>><"content_table"t><"table_footer"<"table_div_6 overflow-auto"i><"table_div_7 overflow-auto"p>>>',
+			"sPaginationType": "bootstrap_alt",
+			"oLanguage": {
+				"sProcessing": '<img alt="Spinner" src="{{asset('bundles/pxbackend/img/ajax-loader1.gif')}}" />',
+				"sLengthMenu":   msg_table_menu,
+				"sZeroRecords":  msg_table_no_matching,
+				"sInfo":         msg_table_showing_start,
+				"sInfoEmpty":    msg_table_showing,
+				"sInfoFiltered": msg_table_filtered,
+				"sInfoPostFix":  "",
+				"sSearch":       msg_table_search,
+				"sUrl":          "",
+				"oPaginate": {
+					"sFirst":    msg_table_first,
+					"sPrevious": msg_table_previous,
+					"sNext":     msg_table_next,
+					"sLast":     msg_table_last
+				}
+			},
+			"aoColumns": aoColumns_datatable,
+			"aaSorting": ordre_column_datatable,
+			"fnCreatedRow": function( nRow, aData ) {
+				if(Object.keys(reorder).length){
+					var id=0;
+					if (("iIdColumn" in reorder) ) {
+						id=reorder['iIdColumn'];
+					}
+					else{
+						id=reorder['iIndexColumn'];
+					}
+					$(nRow).attr('id', aData[id]);
+                                        
+				}
+                                $(nRow).addClass(aData['rowClass']);
+			},
+			"fnDrawCallback": function(oSettings) {
+				if (typeof dataTablefnInitComplete == 'function') {
+					dataTablefnInitComplete(oSettings)
+				}
+
+			},
+		});
+
+		if(Object.keys(reorder).length){
+			oTable[index_datatable].rowReordering({
+						iIndexColumn: reorder['iIndexColumn'],
+						sURL:reorder['url'],
+						params:reorder['extraParams'],
+						fnSuccess: function(message) {
+							if (typeof reorder.fnSuccess == 'function') {
+								reorder.fnSuccess(message);
+							}
+						}
+					}
+			);
+		}
+		$("#"+id_datatable + " tfoot input").keyup( function () {
+			/* Filter on the column (the index) of this element */
+			//oTable[index_datatable].fnFilter( this.value, $("#"+id_datatable + " tfoot input").index(this) );
+			oTable[index_datatable].fnFilter( this.value, $(this).parent().attr("lang") );
+		} );
+		$("#"+id_datatable + " tfoot select").change( function () {
+			/* Filter on the column (the index) of this element */
+			//oTable[index_datatable].fnFilter( this.value, $("#"+id_datatable + " tfoot input").index(this) );
+			oTable[index_datatable].fnFilter( this.value, $(this).parent().attr("lang") );
+		} );
+
+
+		$("#"+id_datatable + " tfoot input.filter_date_datatable").change( function () {
+			/* Filter on the column (the index) of this element */
+			//oTable[index_datatable].fnFilter( this.value, $("#"+id_datatable + " tfoot input").index(this) );
+			if( this.value != "" ){
+				$(this).parent().find('span.date_remove-datatable').removeClass("display-none");
+			}else{
+				$(this).parent().find('span.date_remove-datatable').addClass("display-none");
+			}
+			oTable[index_datatable].fnFilter( this.value, $(this).parent().attr("lang") );
+		} );
+
+		/*
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+		 * the footer
+		 */
+		$("#"+id_datatable + " tfoot input").each( function (i) {
+			asInitVals[index_datatable][i] = this.value;
+		} );
+
+		$("#"+id_datatable + " tfoot input").focus( function () {
+			if ( this.className == "search_init" )
+			{
+				this.className = "";
+				this.value = "";
+			}
+		} );
+
+		$("#"+id_datatable + " tfoot input:not(.filter_date_datatable)").blur( function (i) {
+			if ( this.value == "" )
+			{
+				this.className = "search_init";
+				this.value = asInitVals[index_datatable][$("#"+id_datatable + " tfoot input").index(this)];
+			}
+		} );
+
+		$("#"+id_datatable + " tfoot .date_remove-datatable").click( function () {
+			var test_clear = false;
+			var content_date = $(this).parent().find('input.filter_date_datatable').val();
+
+			$(this).parent().find('input.filter_date_datatable').val("");
+
+			if( content_date != "" ){
+				oTable[index_datatable].fnFilter( "", $(this).parent().attr("lang") );
+			}
+			$(this).parent().find('span.date_remove-datatable').addClass("display-none");
+		} );
+	}
+
+	function initColumn(nbr_column, tabClass, tabSortable, tabVisible, tabSearchable){
+		var result_data = [];
+		for(var i = 0; i< nbr_column; i++){
+			result_data.push({ "sClass": (tabClass[i] != undefined ? tabClass[i] : ""),
+				"bSortable": (tabSortable[i] != undefined ? tabSortable[i] : false),
+				"bVisible": (tabVisible[i] != undefined ? tabVisible[i] : true),
+				"mDataProp": "\""+ i + "\"",
+				"bSearchable": (tabSearchable[i] != undefined ? tabSearchable[i] : true),
+				"sSearch": "\""+ i + "\"" });
+		}
+
+		return result_data;
+	}
+        
+	function deleteEntity(msg_delete, url) {
+
+		smoke.confirm(msg_delete, function (e) {
+			if (e) {
+				window.location.href = url;
+				//smoke.alert('"yeah it is" pressed', {ok:"close"});
+			} else {
+				//smoke.alert('"no way" pressed', {ok:"close"});
+			}
+		}, {ok: text_delete, cancel: text_cancel});
+	}
+	function blackListedEntity(msg_delete, url) {
+
+		smoke.confirm(msg_delete, function (e) {
+			if (e) {
+				window.location.href = url;
+				//smoke.alert('"yeah it is" pressed', {ok:"close"});
+			} else {
+				//smoke.alert('"no way" pressed', {ok:"close"});
+			}
+		}, {ok: text_blackList, cancel: text_cancel});
+	}
+	function removeBlackListEntity(msg_delete, url) {
+
+		smoke.confirm(msg_delete, function (e) {
+			if (e) {
+				window.location.href = url;
+				//smoke.alert('"yeah it is" pressed', {ok:"close"});
+			} else {
+				//smoke.alert('"no way" pressed', {ok:"close"});
+			}
+		}, {ok: text_remove_blackList, cancel: text_cancel});
+	}
+	function verfiedEntity(msg_delete, url) {
+
+		smoke.confirm(msg_delete, function (e) {
+			if (e) {
+				window.location.href = url;
+				//smoke.alert('"yeah it is" pressed', {ok:"close"});
+			} else {
+				//smoke.alert('"no way" pressed', {ok:"close"});
+			}
+		}, {ok: text_verified, cancel: text_cancel});
+	}
+	var url_media_datatable = "{{ asset('media/swf/copy_cvs_xls_pdf.swf') }}";
+	var msg_table_menu = "{{ 'datatable.menuFields'|trans }}";
+	var msg_table_no_matching = msg_table_no_matching == undefined ?"{{ 'datatable.noResultFount'|trans }}":msg_table_no_matching;
+	var msg_table_showing_start = "{{ 'datatable.requiredFields'|trans }}";
+	var msg_table_showing = "{{ 'datatable.ShowingZeroEntries'|trans }}";
+	var msg_table_filtered = "{{ 'datatable.filteredMaxTotale'|trans }}";
+	var msg_table_search = "{{ 'datatable.Search'|trans }}";
+	var msg_table_first = "{{ 'datatable.First'|trans }}";
+	var msg_table_previous = "{{ 'datatable.Previous'|trans }}";
+	var msg_table_next = "{{ 'datatable.Next'|trans }}";
+	var msg_table_last = "{{ 'datatable.Last'|trans }}";
+</script>

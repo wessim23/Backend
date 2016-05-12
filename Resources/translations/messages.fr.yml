@@ -1,0 +1,20 @@
+validate:
+    field:
+        required: Ce champ est requis.
+entity:
+    created: 'Enregistrement avec succès.'
+    deleted: 'Vos modifications sont enregistrées.'
+    updated: 'Enregistrement avec succès.'
+datatable:
+    noResultFount: Aucun résultat disponible
+    requiredFields: Affichage de l\'élement _START_ à _END_ sur _TOTAL_ éléments
+    noResult: Aucun résultat pour cette recherche.
+    loding: Chargement en cours ...
+    menuFields: Afficher _MENU_ éléments
+    ShowingZeroEntries: Affichage de l\'élement 0 à 0 sur 0 éléments
+    filteredMaxTotale: (filtré de _MAX_ éléments au total)
+    Search: 'Rechercher:'
+    First: 'Premier'
+    Previous: 'Précédent'
+    Next: 'Suivant'
+    Last: 'Dernier'
