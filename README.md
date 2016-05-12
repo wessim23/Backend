@@ -200,7 +200,7 @@ parameters:
             sens: asc
 ```
 
-Open the `Repository/TicketRepository` file and add the following configuration:
+Open the `Repository/TicketRepository` file and add the following code:
 
 ```php
 <?php
