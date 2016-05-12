@@ -1,6 +1,6 @@
 # Backend
 **❮ NOTE ❯** This bundle require EasyAdminBundle.
-Start with reading the the documentation of [EasyAdmin] (https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/getting-started.md) to learn how to create complex backends.
+Start with reading the the documentation of [EasyAdmin] (https://github.com/javiereguiluz/EasyAdminBundle) to learn how to create complex backends.
 
 
 Installation pxBackendBundle
