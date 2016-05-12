@@ -1,5 +1,5 @@
 {
-    "name": "px/BackendBundle",
+    "name": "px/backend",
     "description": "pxBackendBundle lets you create administration backends for Symfony applications with unprecedented simplicity.",
     "keywords": ["CRUD", "datatable"],
     "license": "MIT",

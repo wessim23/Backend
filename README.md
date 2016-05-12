@@ -11,7 +11,7 @@ Installation pxBackendBundle
 In your composer.json add the following code:
 
 ```bash
-"px/BackendBundle": "dev-master"
+"px/backend": "dev-master"
 ```
 Then
  
