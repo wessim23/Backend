@@ -39,35 +39,35 @@ Documentation
 
 #### Getting Started Guide
 
-The [Getting Started Guide](Resources/doc/getting-started.md) explains how to
+The [Getting Started Guide](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/getting-started.md) explains how to
 install the bundle and how to create your first backend. This guide is a must-
 read before using EasyAdmin.
 
 #### The Book
 
-  * [Chapter 1 - General configuration](Resources/doc/book/1-general-configuration.md)
-  * [Chapter 2 - Design configuration](Resources/doc/book/2-design-configuration.md)
-  * [Chapter 3 - `list`, `search` and `show` views configuration](Resources/doc/book/3-list-search-show-configuration.md)
-  * [Chapter 4 - `edit` and `new` views configuration](Resources/doc/book/4-edit-new-configuration.md)
-  * [Chapter 5 - Actions configuration](Resources/doc/book/5-actions-configuration.md)
-  * [Chapter 6 - Menu configuration](Resources/doc/book/6-menu-configuration.md)
-  * [Chapter 7 - About this project](Resources/doc/book/7-about.md)
-  * [Appendix - Full configuration reference](Resources/doc/book/configuration-reference.md)
+  * [Chapter 1 - General configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/1-general-configuration.md)
+  * [Chapter 2 - Design configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/2-design-configuration.md)
+  * [Chapter 3 - `list`, `search` and `show` views configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/3-list-search-show-configuration.md)
+  * [Chapter 4 - `edit` and `new` views configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/4-edit-new-configuration.md)
+  * [Chapter 5 - Actions configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/5-actions-configuration.md)
+  * [Chapter 6 - Menu configuration](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/6-menu-configuration.md)
+  * [Chapter 7 - About this project](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/7-about.md)
+  * [Appendix - Full configuration reference](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/book/configuration-reference.md)
 
 #### Tutorials
 
-  * [How to translate the backend](Resources/doc/tutorials/i18n.md)
-  * [How to define custom actions](Resources/doc/tutorials/custom-actions.md)
-  * [How to define custom options for entity properties](Resources/doc/tutorials/custom-property-options.md)
-  * [How to manage configuration for complex backends](Resources/doc/tutorials/complex-backend-config.md)
-  * [Tips and tricks](Resources/doc/tutorials/tips-and-tricks.md)
+  * [How to translate the backend](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/i18n.md)
+  * [How to define custom actions](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/custom-actions.md)
+  * [How to define custom options for entity properties](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/custom-property-options.md)
+  * [How to manage configuration for complex backends](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/complex-backend-config.md)
+  * [Tips and tricks](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/tips-and-tricks.md)
 
 #### Third-party bundles/services integrations
 
-  * [How to upload files and images with VichUploaderBundle](Resources/doc/tutorials/upload-files-and-images.md)
-  * [How to integrate FOSUserBundle to manage users](Resources/doc/tutorials/fosuserbundle-integration.md)
-  * [How to use a WYSIWYG editor with IvoryCKEditorBundle](Resources/doc/tutorials/wysiwyg-editor.md)
-  * [How To integrate FOSRestBundle and EasyAdmin](Resources/doc/tutorials/fosrestbundle-integration.md)
+  * [How to upload files and images with VichUploaderBundle](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/upload-files-and-images.md)
+  * [How to integrate FOSUserBundle to manage users](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/fosuserbundle-integration.md)
+  * [How to use a WYSIWYG editor with IvoryCKEditorBundle](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/wysiwyg-editor.md)
+  * [How To integrate FOSRestBundle and EasyAdmin](https://github.com/javiereguiluz/EasyAdminBundle/blob/master/Resources/doc/tutorials/fosrestbundle-integration.md)
 
 > **❮ NOTE ❯** you are reading the documentation of the bundle's **development**
 > version. You can also [read the documentation of the latest stable version ➜]
