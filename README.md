@@ -16,7 +16,7 @@ In your composer.json add the following code:
 Then
  
 ```bash
-$ composer require px/backend
+$ composer update
 ```
 
 This command requires you to have Composer installed globally, as explained
