@@ -8,6 +8,13 @@ Installation pxBackendBundle
 
 ### Step 1: Download the Bundle
 
+In your composer.json add the following code:
+
+```bash
+"px/backend": "dev-master"
+```
+Then
+ 
 ```bash
 $ composer require px/backend
 ```
