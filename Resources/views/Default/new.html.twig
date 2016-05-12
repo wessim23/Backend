@@ -20,7 +20,7 @@
 
         {% block main %}
             {% block entity_form %}
-                {{form_stylesheet(form)}}
+                {#{{form_stylesheet(form)}}#}
                 {{ form_start(form,{'attr': {'novalidate':'novalidate'}}) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
