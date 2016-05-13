@@ -2,7 +2,14 @@
 {% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans } %}
 
 {% extends _entity_config.templates.layout %}
+{% block head_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/easyadmin-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/pxbackend/css/style.css') }}">
+    <style>
+        {{ easyadmin_config('_internal.custom_css')|raw }}
 
+    </style>
+{% endblock %}
 {% set _request_parameters = _request_parameters|default({})|merge({
     action: app.request.get('action'),
     entity: _entity_config.name,
@@ -25,12 +32,7 @@
             {% if easyadmin_action_is_enabled_for_list_view('new', _entity_config.name) %}
                 {% set _action = easyadmin_get_action_for_list_view('new', _entity_config.name) %}
                 {% block new_action %}
-                    <div class="button-action">
-                        <a class="{{ _action.css_class|default('') }}" href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}">
-                            {% if _action.icon %}<i class="fa fa-{{ _action.icon }}"></i>{% endif %}
-                            {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}
-                        </a>
-                    </div>
+                    <a href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}" class="{{ _action.css_class|default('') }} right width-link-add-edit btn btn-default btn-sm"> {% if _action.icon %}<i class="splashy-document_letter_add fa fa-{{ _action.icon }}"></i>{% endif %}   {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}</a>
                 {% endblock new_action %}
             {% endif %}
         {% endblock content_header %}
@@ -48,7 +50,7 @@
         {% block page_title %}{{ _content_title|striptags }}{% endblock %}
 
         {% block main %}
-             
+
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="row">
@@ -59,11 +61,11 @@
 
                         <input type="hidden" name="hidden_ids" id="hidden_ids" value="" />
                         <input type="hidden" name="hidden_all" id="hidden_all" value="" />
-                        <table class="table table-striped table-bordered dTableR dataTable" id="dt_admin_table">
+                        <table class="table table-striped  dTableR dataTable " id="dt_admin_table">
                             <thead>
                                 <tr>
                                     {%for key, field in config['fields'] %}
-                                        <th class="center">{{field.label}}</th>
+                                        <th class="center backend-table">{{field.label}}</th>
                                         {%endfor%}
 
                                 </tr>
@@ -83,12 +85,12 @@
                     <div id="res-msg" class="{% if showTable == true %}display-none{% else %}display-block{% endif %} col-sm-12 col-md-12">{{ 'jobber.noresult'|trans }}</div>
                 </div>
             </div>
-                    {% for flashMessage in app.session.flashbag.get('success') %}
-                        <div class="alert alert-success alert-dismissable ">
-                            <a class="close" data-dismiss="alert">×</a>
-                            {{ flashMessage }}
-                        </div>
-                    {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success alert-dismissable ">
+                    <a class="close" data-dismiss="alert">×</a>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
         {% endblock %}
 
 
@@ -121,3 +123,4 @@
 
             </script>
         {% endblock %}
+

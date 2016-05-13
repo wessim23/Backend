@@ -6,7 +6,14 @@
 {% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans } %}
 
 {% extends _entity_config.templates.layout %}
+{% block head_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/easyadmin-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/pxbackend/css/style.css') }}">
+    <style>
+        {{ easyadmin_config('_internal.custom_css')|raw }}
 
+    </style>
+{% endblock %}
 {% block body_id 'easyadmin-new-' ~ _entity_config.name %}
 
     {% block body_class 'new new-' ~ _entity_config.name|lower %}

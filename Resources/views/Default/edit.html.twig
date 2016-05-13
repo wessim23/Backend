@@ -5,7 +5,14 @@
 {% set _trans_parameters = { '%entity_name%': _entity_config.name|trans, '%entity_label%': _entity_config.label|trans, '%entity_id%': _entity_id } %}
 
 {% extends _entity_config.templates.layout %}
+{% block head_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/easyadmin-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/pxbackend/css/style.css') }}">
+    <style>
+        {{ easyadmin_config('_internal.custom_css')|raw }}
 
+    </style>
+{% endblock %}
 {% block body_id 'easyadmin-edit-' ~ _entity_config.name ~ '-' ~ _entity_id %}
     {% block body_class 'edit edit-' ~ _entity_config.name|lower %}
 
