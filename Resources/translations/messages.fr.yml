@@ -1,3 +1,4 @@
+home: Accueil
 validate:
     field:
         required: Ce champ est requis.

@@ -3,10 +3,11 @@
 
         {% for label, messages in app.session.flashbag.all %}
             {% for message in messages %}
-                <div class="alert alert-success alert-dismissable" style ="margin: 7px;">
+                <div class="alert alert-success alert-dismissable backend-succes" style ="">
                     <a class="close" data-dismiss="alert">×</a>
                     {{ message }}
                 </div>
             {% endfor %}
         {% endfor %}
     {% endif %}
+

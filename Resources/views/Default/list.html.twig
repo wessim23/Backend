@@ -10,6 +10,7 @@
 
     </style>
 {% endblock %}
+
 {% set _request_parameters = _request_parameters|default({})|merge({
     action: app.request.get('action'),
     entity: _entity_config.name,
@@ -29,14 +30,18 @@
 {% block body_id 'easyadmin-list-' ~ _entity_config.name %}
     {% block body_class 'list list-' ~ _entity_config.name|lower %}
         {% block content_header %}
-            {% if easyadmin_action_is_enabled_for_list_view('new', _entity_config.name) %}
-                {% set _action = easyadmin_get_action_for_list_view('new', _entity_config.name) %}
-                {% block new_action %}
-                    <a href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}" class="{{ _action.css_class|default('') }} right width-link-add-edit btn btn-default btn-sm"> {% if _action.icon %}<i class="splashy-document_letter_add fa fa-{{ _action.icon }}"></i>{% endif %}   {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}</a>
-                {% endblock new_action %}
-            {% endif %}
+            <div id="jCrumbs" class="breadCrumb module">
+                <ul>
+                    <li><a href="{{ path('admin') }}"><i class="padding-right-7"></i> {{ 'home'|trans }}</a></li>
+
+                </ul>
+            </div>
+
+          
         {% endblock content_header %}
+       
         {% set _content_title %}
+           
             {% spaceless %}
                 {% if 'search' == app.request.get('action') %}
                     {{ 'search.page_title'|transchoice(count = paginator.nbResults, domain = 'EasyAdminBundle')|raw }}
@@ -50,6 +55,12 @@
         {% block page_title %}{{ _content_title|striptags }}{% endblock %}
 
         {% block main %}
+               {% if easyadmin_action_is_enabled_for_list_view('new', _entity_config.name) %}
+                {% set _action = easyadmin_get_action_for_list_view('new', _entity_config.name) %}
+                {% block new_action %}
+                    <a href="{{ path('easyadmin', _request_parameters|merge({ action: _action.name })) }}" class="{{ _action.css_class|default('') }} right width-link-add-edit btn btn-default btn-sm"> {% if _action.icon %}<i class="splashy-document_letter_add fa fa-{{ _action.icon }}"></i>{% endif %}   {{ _action.label is defined and not _action.label is empty ? _action.label|trans(_trans_parameters) }}</a>
+                {% endblock new_action %}
+            {% endif %}
 
             <div class="row">
                 <div class="col-sm-12 col-md-12">
@@ -82,15 +93,10 @@
                         </table>
 
                     </div>
-                    <div id="res-msg" class="{% if showTable == true %}display-none{% else %}display-block{% endif %} col-sm-12 col-md-12">{{ 'jobber.noresult'|trans }}</div>
+                    <div id="res-msg" class="{% if showTable == true %}display-none{% else %}display-block{% endif %} col-sm-12 col-md-12">{{ 'datatable.noResultFount'|trans }}</div>
                 </div>
             </div>
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success alert-dismissable ">
-                    <a class="close" data-dismiss="alert">×</a>
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
+
         {% endblock %}
 
 
