@@ -98,6 +98,9 @@ imports:
 easy_admin:
     entities:
         Ticket:
+            templates:
+                flash_messages: "pxBackendBundle:Default:flash_messages.html.twig"
+                layout: "pxBackendBundle:Default:layout.html.twig"
             class: AppBundle\Entity\Ticket
 ```
 
