@@ -33,6 +33,7 @@
             <div id="jCrumbs" class="breadCrumb module">
                 <ul>
                     <li><a href="{{ path('admin') }}"><i class="padding-right-7"></i> {{ 'home'|trans }}</a></li>
+                    <li><a href="{{ path('admin', {'entity': _entity_config.name}) }}"><i class="padding-right-7"></i>      {{  _entity_config.name }}</a></li>
 
                 </ul>
             </div>
